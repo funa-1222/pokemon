@@ -6,12 +6,20 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Outlet } from 'react-router-dom'
+import { Link } from '@mui/material';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Layout() {
+    const sections = [
+        { title: 'Topページ', url: '/' },
+        { title: 'ポケモンを検索', url: '/search' },
+        { title: '捕まえたポケモン', url: '/geted' },
+        
+    ];
+
     return (
     <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
@@ -21,6 +29,24 @@ export default function Layout() {
                 ポケモン図鑑
             </Typography>
         </Toolbar>
+        <Toolbar
+        component="nav"
+        variant="dense"
+        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+      >
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
+            key={section.title}
+            variant="body2"
+            href={section.url}
+            sx={{ p: 1, flexShrink: 0 }}
+          >
+            {section.title}
+          </Link>
+        ))}
+      </Toolbar>
         </AppBar>
         <main>
             <Outlet />
